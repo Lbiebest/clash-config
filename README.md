@@ -1,165 +1,116 @@
-# clash-config
+# Clash 配置管理工具
 
-- [clash-config](#clash-config)
-  - [clash 配置文件解析](#clash-配置文件解析)
-  - [远程配置文件解析](#远程配置文件解析)
-  - [实战](#实战)
+[![GitHub stars](https://img.shields.io/github/stars/Lbiebest/clash-config?style=flat-square)](https://github.com/Lbiebest/clash-config/stargazers)
+[![License](https://img.shields.io/github/license/Lbiebest/clash-config?style=flat-square)](https://github.com/Lbiebest/clash-config/LICENSE)
+
+## 简介
+
+这个仓库提供了一套完整的 Clash 配置管理解决方案，包括基础配置文件、规则集、自定义规则和订阅转换指南。旨在帮助用户快速构建和优化自己的 Clash 配置，实现高效稳定的网络体验。
+
+## 功能特点
+
+- ✅ 预设优化的 DNS 配置
+- ✅ 分类清晰的策略组设置
+- ✅ 全面的分流规则集
+- ✅ 支持远程配置和订阅转换
+- ✅ 详细的配置文档和使用指南
+
+## 目录结构
+
+```
+clash-config/
+├── local-config/           # 本地配置目录
+├── docs/                   # 文档目录
+│   ├── 配置文件.md         # Clash 配置文件详解
+│   ├── DNS.md              # DNS 配置指南
+│   ├── 策略组.md           # 策略组配置说明
+│   ├── 分流规则.md         # 分流规则说明
+│   ├── 远程配置文件.md      # 远程配置使用指南
+│   └── image/              # 文档图片资源
+├── rules/                  # 规则文件目录
+│   └── CustomDirect.list   # 自定义直连规则
+├── default-config.yml      # 默认配置模板
+├── ACL4SSR_Online_Full.ini             # ACL4SSR 在线完整配置
+└── ACL4SSR_Online_Full_Custom.ini      # 自定义 ACL4SSR 在线配置
+```
+
+## 使用指南
+
+### 基础配置
+
+基础配置文件包含了 Clash 的核心设置，包括端口、模式和 DNS 等参数。你可以直接使用 `default-config.yml` 作为基础模板：
+
+<details>
+<summary>基础配置示例（点击展开）</summary>
+
+```yml
+mixed-port: 7890
+allow-lan: true
+bind-address: "*"
+ipv6: false
+mode: rule
+log-level: info
+external-controller: 127.0.0.1:9090
+dns:
+  enable: true
+  prefer-h3: true
+  use-hosts: true
+  # 更多 DNS 配置...
+```
+</details>
+
+### 订阅转换
+
+将现有的订阅链接转换为 Clash 配置的步骤：
+
+1. 准备好你的节点订阅链接
+2. 使用订阅转换工具（如 [subconverter](https://github.com/tindy2013/subconverter)）
+3. 选择本仓库提供的配置模板（ACL4SSR_Online_Full_Custom.ini）
+4. 生成 Clash 配置并导入到 Clash 客户端
+
+![订阅转换示例](./docs/image/image1.png)
+
+### 配置检查
+
+生成配置后，检查转换结果是否符合预期：
+
+![配置检查](./docs/image/image2.png)
+
+如果导入遇到问题，可能需要检查 SSL 证书设置：
+
+![SSL证书设置](./docs/image/image3.png)
+
+## 详细文档
+
+本项目提供了详细的配置文档，涵盖各个方面：
+
+- [配置文件基础](./docs/配置文件.md) - Clash 配置文件的基本结构和参数说明
+- [DNS 设置详解](./docs/DNS.md) - DNS 配置的详细说明和优化建议
+- [策略组配置](./docs/策略组.md) - 策略组的分类、配置和使用方法
+- [分流规则详解](./docs/分流规则.md) - 常用分流规则说明和自定义方法
+- [远程配置使用](./docs/远程配置文件.md) - 远程配置的使用和维护指南
+
+## 自定义配置
+
+你可以根据个人需求修改以下文件：
+
+1. `rules/CustomDirect.list` - 添加自定义的直连域名或 IP
+2. `ACL4SSR_Online_Full_Custom.ini` - 自定义规则集和策略组
+
+## 贡献指南
+
+欢迎提交 Issues 和 Pull Requests 来完善这个项目。在提交贡献前，请确保你的修改符合项目的目标和规范。
+
+## 许可协议
+
+本项目采用 MIT 许可协议 - 详细信息请查看 [LICENSE](LICENSE) 文件。
+
+## 参考资源
+
+- [Clash 官方文档](https://github.com/Dreamacro/clash/wiki)
+- [ACL4SSR 规则](https://github.com/ACL4SSR/ACL4SSR)
+- [Subconverter 项目](https://github.com/tindy2013/subconverter)
 
 ---
 
-
-
-## clash 配置文件解析
-
-- [配置文件]
-
-- [DNS]
-
-- [策略组]
-
-- [分流规则]
-
-## 远程配置文件解析
-
-- [远程配置文件]
-
-## 实战
-
-- 将文件上传至`Github`
-
-1. clash 配置文件
-
-    <details>
-    <summary>点击查看配置</summary>
-    <div style="max-height: 25em; overflow-y: auto;">
-
-    ```yml
-    mixed-port: 7890
-    allow-lan: true
-    bind-address: "*"
-    ipv6: false
-    mode: rule
-    log-level: info
-    external-controller: 127.0.0.1:9090
-    dns:
-      enable: true
-      prefer-h3: true
-      use-hosts: true
-      use-system-hosts: true
-      respect-rules: false
-      listen: 0.0.0.0:1053
-      ipv6: false
-      enhanced-mode: fake-ip
-      fake-ip-range: 198.18.0.1/16
-      fake-ip-filter:
-        - '*.lan'
-        - "+.local"
-        - localhost.ptlogin2.qq.com
-      default-nameserver:
-        - tls://1.12.12.12
-        - 223.5.5.5
-        - 119.29.29.29
-      nameserver-policy:
-        'www.baidu.com': '114.114.114.114'
-        '+.internal.crop.com': '10.0.0.1'
-        'geosite:cn,private':
-        - https://223.5.5.5/dns-query
-        - https://223.6.6.6/dns-query
-      nameserver:
-        - https://dns.alidns.com/dns-query
-        - https://doh.pub/dns-query
-      proxy-server-nameserver:
-        - https://dns.alidns.com/dns-query
-        - https://doh.pub/dns-query
-      fallback:
-        - tls://1dot1dot1dot1.cloudflare-dns.com
-        - tcp://1.1.1.1
-        - https://1.0.0.1/dns-query
-        - https://1.1.1.1/dns-query
-      fallback-filter:
-        geoip: true
-        geoip-code: CN
-        geosite:
-          - gfw
-        ipcidr:
-          - 240.0.0.0/4
-          - 0.0.0.0/32
-          - 127.0.0.1/32
-        domain:
-          - '+.google.com'
-          - '+.facebook.com'
-          - '+.youtube.com'  
-    ```
-
-    </div>
-    </details>
-
-2. 远程配置
-
-    <details>
-    <summary>点击查看配置</summary>
-    <div style="max-height: 25em; overflow-y: auto;">
-
-    ```yml
-    [custom]
-    ;不要随意改变关键字，否则会导致出错
-    ;acl4SSR规则
-
-    ;去广告：支持
-    ;自动测速：支持
-    ;微软分流：不支持
-    ;苹果分流：不支持
-    ;增强中国IP段：不支持
-    ;增强国外GFW：不支持
-
-    ; 需要使用绝对路径
-    ruleset=🎯 全球直连,rules/ACL4SSR/Clash/LocalAreaNetwork.list
-    ruleset=🛑 全球拦截,rules/ACL4SSR/Clash/BanAD.list
-    ruleset=🛑 全球拦截,rules/ACL4SSR/Clash/BanProgramAD.list
-    ruleset=🎯 全球直连,rules/ACL4SSR/Clash/GoogleCN.list
-    ruleset=🎯 全球直连,rules/ACL4SSR/Clash/Ruleset/SteamCN.list
-    ruleset=🚀 节点选择,rules/ACL4SSR/Clash/Telegram.list
-    ruleset=🚀 节点选择,rules/ACL4SSR/Clash/ProxyMedia.list
-    ruleset=🚀 节点选择,rules/ACL4SSR/Clash/ProxyLite.list
-    ruleset=🎯 全球直连,rules/ACL4SSR/Clash/ChinaDomain.list
-    ruleset=🎯 全球直连,rules/ACL4SSR/Clash/ChinaCompanyIp.list
-    ;ruleset=🎯 全球直连,[]GEOIP,LAN
-    ruleset=🎯 全球直连,[]GEOIP,CN
-    ruleset=🐟 漏网之鱼,[]FINAL
-
-    custom_proxy_group=🚀 节点选择`select`[]♻️ 自动选择`[]DIRECT`.*
-    custom_proxy_group=♻️ 自动选择`url-test`.*`http://www.gstatic.com/generate_204`300,,50
-    custom_proxy_group=🎯 全球直连`select`[]DIRECT`[]🚀 节点选择`[]♻️ 自动选择
-    custom_proxy_group=🛑 全球拦截`select`[]REJECT`[]DIRECT
-    custom_proxy_group=🐟 漏网之鱼`select`[]🚀 节点选择`[]🎯 全球直连`[]♻️ 自动选择`.*
-
-    enable_rule_generator=true
-    overwrite_original_rules=true
-
-    clash_rule_base=你的base.yml的github地址
-    ```
-
-    </div>
-    </details>
-
-
-- 进行订阅转换
-
-![alt text](./docs/image/image1.png)
-
-- 检查转换后的订阅
-
-![alt text](./docs/image/image2.png)
-
-如果无法导入，需要确认SSL证书、或者允许无效证书
-
-![alt text](./docs/image/image3.png)
-
-
-[配置文件]: ./docs/配置文件.md
-[DNS]: ./docs/DNS.md
-[策略组]: ./docs/策略组.md
-[分流规则]: ./docs/分流规则.md
-[远程配置文件]: ./docs/远程配置文件.md
-
-参考至 <a color="green">https://linux.do/t/topic/163682</a>
+项目参考自: https://linux.do/t/topic/163682
