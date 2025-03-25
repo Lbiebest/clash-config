@@ -2,7 +2,7 @@
 mixed-port: 7890
 allow-lan: true
 bind-address: "*"
-ipv6: false
+ipv6: true
 mode: rule
 log-level: info
 external-controller: 127.0.0.1:9090
@@ -66,7 +66,15 @@ tun:
   auto-route: true
   auto-detect-interface: true
 
+
 # 空白代理组配置（由脚本生成）
-proxies: []
-proxy-groups: []
-rules: []
+# 🎯 自定义直连  # 🚀 节点选择  # 🚀 手动切换  # ♻️ 自动选择
+# 📲 电报消息    # 💬 OpenAi  # 📹 油管视频  # 🎥 奈飞视频
+# 📺 巴哈姆特    # 📺 哔哩哔哩  # 🌍 国外媒体  # 🌏 国内媒体
+# 📢 谷歌FCM    # Ⓜ️ 微软Bing  # Ⓜ️ 微软云盘  # Ⓜ️ 微软服务
+# 🍎 苹果服务   # 🎮 游戏平台  # 🎶 网易音乐  # 🎯 全球直连
+# 🛑 广告拦截   # 🍃 应用净化  # 🐟 漏网之鱼  # 🎥 奈飞节点
+# 🇭🇰 香港节点   # 🇨🇳 台湾节点  # 🇯🇵 日本节点  # 🇺🇲 美国节点
+# 🇸🇬 狮城节点   # 🇰🇷 韩国节点
+
+rules: ["DOMAIN-SUFFIX,linux.do,🎯 自定义直连"]
