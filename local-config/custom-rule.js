@@ -506,7 +506,7 @@ function main(config) {
         {
             name: "🐟 漏网之鱼",
             type: "select",
-            proxies: ["🚀 节点选择", "♻️ 自动选择", "DIRECT", "🇭🇰 香港节点", "🇨🇳 台湾节点", "🇸🇬 狮城节点", "🇯🇵 日本节点", "🇺🇲 美国节点", ...(krProxies.length > 0 ? ["🇰🇷 韩国节点"] : []), "🚀 手动切换"]
+            proxies: ["DIRECT", "🚀 节点选择", "♻️ 自动选择", "🇭🇰 香港节点", "🇨🇳 台湾节点", "🇸🇬 狮城节点", "🇯🇵 日本节点", "🇺🇲 美国节点", ...(krProxies.length > 0 ? ["🇰🇷 韩国节点"] : []), "🚀 手动切换"]
         },
         // 奈飞节点
         {
@@ -521,9 +521,27 @@ function main(config) {
     config["rule-providers"] = ruleProviders;
     // 自定义直连规则
     const customDirectRules = [
+        // gemini rules
+        "DOMAIN,ai.google.dev,♻️ 自动选择",
+        "DOMAIN,alkalimakersuite-pa.clients6.google.com,♻️ 自动选择",
+        "DOMAIN,makersuite.google.com,♻️ 自动选择",
+        "DOMAIN-SUFFIX,bard.google.com,♻️ 自动选择",
+        "DOMAIN-SUFFIX,deepmind.com,♻️ 自动选择",
+        "DOMAIN-SUFFIX,deepmind.google,♻️ 自动选择",
+        "DOMAIN-SUFFIX,gemini.google.com,♻️ 自动选择",
+        "DOMAIN-SUFFIX,generativeai.google,♻️ 自动选择",
+        "DOMAIN-SUFFIX,proactivebackend - pa.googleapis.com,♻️ 自动选择",
+        "DOMAIN-SUFFIX,apis.google.com,♻️ 自动选择",
+        "DOMAIN-KEYWORD,colab,♻️ 自动选择",
+        "DOMAIN-KEYWORD,developerprofiles,♻️ 自动选择",
+        "DOMAIN-KEYWORD,generativelanguage,♻️ 自动选择",
+
         "DOMAIN-KEYWORD,github,♻️ 自动选择",
+        "DOMAIN-KEYWORD,googleapis,♻️ 自动选择",
+
         "DOMAIN-KEYWORD,douyin,🎯 自定义直连",
         "DOMAIN-KEYWORD,weixin,🎯 自定义直连",
+        "DOMAIN-KEYWORD,qcc,🎯 自定义直连",
         "DOMAIN-SUFFIX,linux.do,🎯 自定义直连",
         "DOMAIN-SUFFIX,speedtest.net,🎯 自定义直连",
         "DOMAIN-SUFFIX,nguaduot.cn,🎯 自定义直连",
@@ -534,7 +552,7 @@ function main(config) {
     config["rules"] = [
         ...customDirectRules,
         // 自定义直连
-        // "RULE-SET,CustomDirect,🎯 自定义直连",
+        "RULE-SET,CustomDirect,🎯 自定义直连",
 
         // 全球直连规则
         "RULE-SET,LocalAreaNetwork,🎯 全球直连",
