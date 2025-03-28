@@ -278,6 +278,14 @@ const ruleProviders = {
         "url": "https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/Extra/ChinaIP.yaml",
         "path": "./ruleset/ChinaIPs.yaml"
     },
+    "ProcessRules": {
+        "type": "http",
+        "format": "text",
+        "interval": 86400,
+        "behavior": "classical",
+        "url": "https://raw.githubusercontent.com/Lbiebest/clash-config/refs/heads/master/rules/ProcessRules.list",
+        "path": "./ruleset/ProcessRules.yaml"
+    },
 };
 
 // 获取符合正则表达式的代理组
@@ -568,6 +576,9 @@ function main(config) {
     config["rules"] = [
         // 自定义直连规则
         ...customDirectRules,
+
+        // 进程规则
+        "RULE-SET,ProcessRules,DIRECT",
 
         // ===== 国内IP地址 =====
         // GEOIP放到更前面的位置，确保国内IP优先匹配
