@@ -566,59 +566,60 @@ function main(config) {
     ]
     // 添加自定义直连规则
     config["rules"] = [
+        // 自定义直连规则
         ...customDirectRules,
 
+        // ===== 国内IP地址 =====
         // GEOIP放到更前面的位置，确保国内IP优先匹配
         "GEOIP,CN,🎯 全球直连",
         // 加入国内IP规则
         "RULE-SET,ChinaIPs,🎯 全球直连",
 
+        // ===== 自定义规则集 =====
         // 自定义直连
         "RULE-SET,CustomDirect,🎯 自定义直连",
-
         // 国内网站规则集
         "RULE-SET,GuoNeiWangZhan,🎯 全球直连",
 
+        // ===== 基础规则 =====
         // 全球直连规则
         "RULE-SET,LocalAreaNetwork,🎯 全球直连",
         "RULE-SET,UnBan,🎯 全球直连",
 
+        // ===== 广告规则 =====
         // 广告拦截
         "RULE-SET,BanAD,🛑 广告拦截",
         "RULE-SET,BanProgramAD,🍃 应用净化",
 
+        // ===== 国际服务 =====
         // 谷歌服务
         "RULE-SET,GoogleFCM,📢 谷歌FCM",
         "RULE-SET,GoogleCN,🎯 全球直连",
-
         // Steam中国
         "RULE-SET,SteamCN,🎯 全球直连",
-
         // 微软服务
         "RULE-SET,Bing,Ⓜ️ 微软Bing",
         "RULE-SET,OneDrive,Ⓜ️ 微软云盘",
         "RULE-SET,Microsoft,Ⓜ️ 微软服务",
-
         // 苹果服务
         "RULE-SET,Apple,🍎 苹果服务",
-
         // 电报
         "RULE-SET,Telegram,📲 电报消息",
-
         // OpenAI
         "RULE-SET,OpenAi,💬 OpenAi",
 
+        // ===== 国内服务 =====
         // 网易音乐
         "RULE-SET,NetEaseMusic,🎶 网易音乐",
 
-        // 游戏平台
+        // ===== 游戏平台 =====
         "RULE-SET,Epic,🎮 游戏平台",
         "RULE-SET,Origin,🎮 游戏平台",
         "RULE-SET,Sony,🎮 游戏平台",
         "RULE-SET,Steam,🎮 游戏平台",
         "RULE-SET,Nintendo,🎮 游戏平台",
 
-        // 流媒体
+        // ===== 流媒体 =====
         "RULE-SET,YouTube,📹 油管视频",
         "RULE-SET,Netflix,🎥 奈飞视频",
         "RULE-SET,Bahamut,📺 巴哈姆特",
@@ -627,15 +628,15 @@ function main(config) {
         "RULE-SET,ChinaMedia,🌏 国内媒体",
         "RULE-SET,ProxyMedia,🌍 国外媒体",
 
-        // 代理列表
+        // ===== 代理列表 =====
         "RULE-SET,ProxyGFWlist,🚀 节点选择",
 
-        // 中国域名
+        // ===== 中国直连域名 =====
         "RULE-SET,ChinaDomain,🎯 全球直连",
         "RULE-SET,ChinaCompanyIp,🎯 全球直连",
         "RULE-SET,Download,🎯 全球直连",
 
-
+        // ===== 兜底规则 =====
         // 漏网之鱼
         "MATCH,🐟 漏网之鱼",
     ];
