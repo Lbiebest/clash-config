@@ -261,6 +261,14 @@ const ruleProviders = {
         "behavior": "classical",
         "url": "https://raw.githubusercontent.com/Lbiebest/clash-config/refs/heads/master/rules/CustomDirect.list",
         "path": "./ruleset/CustomDirect.yaml"
+    },
+    "GuoNeiWangZhan": {
+        "type": "http",
+        "format": "yaml",
+        "interval": 86400,
+        "behavior": "classical",
+        "url": "https://raw.githubusercontent.com/Meilieage/webcdn/main/rule/list/GuoNeiWangZhan.list",
+        "path": "./ruleset/GuoNeiWangZhan.yaml"
     }
 };
 
@@ -553,6 +561,9 @@ function main(config) {
         ...customDirectRules,
         // 自定义直连
         "RULE-SET,CustomDirect,🎯 自定义直连",
+
+        // 国内网站规则集
+        "RULE-SET,GuoNeiWangZhan,🎯 全球直连",
 
         // 全球直连规则
         "RULE-SET,LocalAreaNetwork,🎯 全球直连",
