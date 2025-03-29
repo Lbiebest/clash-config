@@ -1,14 +1,15 @@
 // 需要排除的节点名称正则
-const excludeRegexStr = "^(?!.*(下载|测试)).*";
+const excludeRegexStr = "^(?!.*(下载|测试|充值|余额|分割线|群|官网|失联|邮件)).*";
 const excludeRegex = new RegExp(excludeRegexStr, "u");
 
 // 按地区分组的正则表达式 - 根据配置修改正则匹配
 const hkRegex = /港|HK|hk|Hong Kong|HongKong|hongkong/i;
 const twRegex = /台|新北|彰化|TW|Taiwan/i;
-const jpRegex = /日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan/i;
+const jpRegex = /日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan|京/i;
 const usRegex = /美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|United States/i;
 const sgRegex = /新加坡|坡|狮城|SG|Singapore/i;
 const krRegex = /KR|Korea|KOR|首尔|韩|韓/i;
+const ukRegex = /英格兰|英国|伦敦|UK|United Kingdom/i;
 const nfRegex = /NF|奈飞|解锁|Netflix|NETFLIX|Media/i;
 const neteaseMusicRegex = /网易|音乐|解锁|Music|NetEase/i;
 
@@ -308,6 +309,7 @@ function main(config) {
     const usProxies = getProxiesByRegex(config["proxies"], usRegex);
     const sgProxies = getProxiesByRegex(config["proxies"], sgRegex);
     const krProxies = getProxiesByRegex(config["proxies"], krRegex);
+    const ukProxies = getProxiesByRegex(config["proxies"], ukRegex);
     const nfProxies = getProxiesByRegex(config["proxies"], nfRegex);
     const neteaseMusicProxies = getProxiesByRegex(config["proxies"], neteaseMusicRegex);
 
@@ -386,8 +388,41 @@ function main(config) {
         });
     }
 
+    // 英国节点组
+    if (ukProxies.length > 0) {
+        regionGroups.push({
+            name: "🇬🇧 英国节点",
+            type: "url-test",
+            proxies: ukProxies,
+            url: "http://www.gstatic.com/generate_204",
+            interval: 300,
+            tolerance: 50
+        });
+    }
+
     // 获取所有地区组名称
     const regionGroupNames = regionGroups.map(group => group.name);
+
+    // 创建可用节点列表函数
+    function getAvailableProxies(baseProxies) {
+        const result = [];
+
+        // 添加基础代理
+        for (const proxy of baseProxies) {
+            result.push(proxy);
+        }
+
+        // 添加地区节点（如果可用）
+        if (sgProxies.length > 0) result.push("🇸🇬 狮城节点");
+        if (hkProxies.length > 0) result.push("🇭🇰 香港节点");
+        if (twProxies.length > 0) result.push("🇨🇳 台湾节点");
+        if (jpProxies.length > 0) result.push("🇯🇵 日本节点");
+        if (usProxies.length > 0) result.push("🇺🇲 美国节点");
+        if (ukProxies.length > 0) result.push("🇬🇧 英国节点");
+        if (krProxies.length > 0) result.push("🇰🇷 韩国节点");
+
+        return result;
+    }
 
     // 修改代理组配置
     config["proxy-groups"] = [
@@ -397,18 +432,26 @@ function main(config) {
             type: "select",
             proxies: ["DIRECT"]
         },
+
         // 节点选择
         {
             name: "🚀 节点选择",
             type: "select",
-            proxies: ["♻️ 自动选择", ...regionGroupNames, "🚀 手动切换", "DIRECT"]
+            proxies: [
+                "♻️ 自动选择",
+                ...regionGroupNames,
+                "🚀 手动切换",
+                "DIRECT"
+            ]
         },
+
         // 手动切换
         {
             name: "🚀 手动切换",
             type: "select",
             proxies: allProxies
         },
+
         // 自动选择
         {
             name: "♻️ 自动选择",
@@ -418,126 +461,235 @@ function main(config) {
             interval: 300,
             tolerance: 50
         },
+
         // 电报消息
         {
             name: "📲 电报消息",
             type: "select",
-            proxies: ["🚀 节点选择", "♻️ 自动选择", "🇸🇬 狮城节点", "🇭🇰 香港节点", "🇨🇳 台湾节点", "🇯🇵 日本节点", "🇺🇲 美国节点", ...(krProxies.length > 0 ? ["🇰🇷 韩国节点"] : []), "🚀 手动切换", "DIRECT"]
+            proxies: getAvailableProxies([
+                "🚀 节点选择",
+                "♻️ 自动选择",
+                "🚀 手动切换",
+                "DIRECT"
+            ])
         },
+
         // OpenAI
         {
             name: "💬 OpenAi",
             type: "select",
-            proxies: ["🚀 节点选择", "♻️ 自动选择", "🇸🇬 狮城节点", "🇭🇰 香港节点", "🇨🇳 台湾节点", "🇯🇵 日本节点", "🇺🇲 美国节点", ...(krProxies.length > 0 ? ["🇰🇷 韩国节点"] : []), "🚀 手动切换", "DIRECT"]
+            proxies: getAvailableProxies([
+                "🚀 节点选择",
+                "♻️ 自动选择",
+                "🚀 手动切换",
+                "DIRECT"
+            ])
         },
+
         // 油管视频
         {
             name: "📹 油管视频",
             type: "select",
-            proxies: ["🚀 节点选择", "♻️ 自动选择", "🇸🇬 狮城节点", "🇭🇰 香港节点", "🇨🇳 台湾节点", "🇯🇵 日本节点", "🇺🇲 美国节点", ...(krProxies.length > 0 ? ["🇰🇷 韩国节点"] : []), "🚀 手动切换", "DIRECT"]
+            proxies: getAvailableProxies([
+                "🚀 节点选择",
+                "♻️ 自动选择",
+                "🚀 手动切换",
+                "DIRECT"
+            ])
         },
+
         // 奈飞视频
         {
             name: "🎥 奈飞视频",
             type: "select",
-            proxies: ["🎥 奈飞节点", "🚀 节点选择", "♻️ 自动选择", "🇸🇬 狮城节点", "🇭🇰 香港节点", "🇨🇳 台湾节点", "🇯🇵 日本节点", "🇺🇲 美国节点", ...(krProxies.length > 0 ? ["🇰🇷 韩国节点"] : []), "🚀 手动切换", "DIRECT"]
+            proxies: getAvailableProxies([
+                "🎥 奈飞节点",
+                "🚀 节点选择",
+                "♻️ 自动选择",
+                "🚀 手动切换",
+                "DIRECT"
+            ])
         },
+
         // 巴哈姆特
         {
             name: "📺 巴哈姆特",
             type: "select",
-            proxies: ["🇨🇳 台湾节点", "🚀 节点选择", "🚀 手动切换", "DIRECT"]
+            proxies: twProxies.length > 0 ? [
+                "🇨🇳 台湾节点",
+                "🚀 节点选择",
+                "🚀 手动切换",
+                "DIRECT"
+            ] : [
+                "🚀 节点选择",
+                "🚀 手动切换",
+                "DIRECT"
+            ]
         },
+
         // 哔哩哔哩
         {
             name: "📺 哔哩哔哩",
             type: "select",
-            proxies: ["🎯 全球直连", "🇨🇳 台湾节点", "🇭🇰 香港节点"]
+            proxies: [
+                "🎯 全球直连"
+            ].concat(hkProxies.length > 0 ? ["🇭🇰 香港节点"] : [])
+                .concat(twProxies.length > 0 ? ["🇨🇳 台湾节点"] : [])
         },
+
         // 国外媒体
         {
             name: "🌍 国外媒体",
             type: "select",
-            proxies: ["🚀 节点选择", "♻️ 自动选择", "🇭🇰 香港节点", "🇨🇳 台湾节点", "🇸🇬 狮城节点", "🇯🇵 日本节点", "🇺🇲 美国节点", ...(krProxies.length > 0 ? ["🇰🇷 韩国节点"] : []), "🚀 手动切换", "DIRECT"]
+            proxies: getAvailableProxies([
+                "🚀 节点选择",
+                "♻️ 自动选择",
+                "🚀 手动切换",
+                "DIRECT"
+            ])
         },
+
         // 国内媒体
         {
             name: "🌏 国内媒体",
             type: "select",
-            proxies: ["DIRECT", "🇭🇰 香港节点", "🇨🇳 台湾节点", "🇸🇬 狮城节点", "🇯🇵 日本节点", "🚀 手动切换"]
+            proxies: [
+                "DIRECT",
+                "🚀 手动切换"
+            ].concat(sgProxies.length > 0 ? ["🇸🇬 狮城节点"] : [])
+                .concat(hkProxies.length > 0 ? ["🇭🇰 香港节点"] : [])
+                .concat(twProxies.length > 0 ? ["🇨🇳 台湾节点"] : [])
+                .concat(jpProxies.length > 0 ? ["🇯🇵 日本节点"] : [])
         },
+
         // 谷歌FCM
         {
             name: "📢 谷歌FCM",
             type: "select",
-            proxies: ["DIRECT", "🚀 节点选择", "🇺🇲 美国节点", "🇭🇰 香港节点", "🇨🇳 台湾节点", "🇸🇬 狮城节点", "🇯🇵 日本节点", ...(krProxies.length > 0 ? ["🇰🇷 韩国节点"] : []), "🚀 手动切换"]
+            proxies: getAvailableProxies([
+                "DIRECT",
+                "🚀 节点选择",
+                "🚀 手动切换"
+            ])
         },
+
         // 微软Bing
         {
             name: "Ⓜ️ 微软Bing",
             type: "select",
-            proxies: ["DIRECT", "🚀 节点选择", "🇺🇲 美国节点", "🇭🇰 香港节点", "🇨🇳 台湾节点", "🇸🇬 狮城节点", "🇯🇵 日本节点", ...(krProxies.length > 0 ? ["🇰🇷 韩国节点"] : []), "🚀 手动切换"]
+            proxies: getAvailableProxies([
+                "DIRECT",
+                "🚀 节点选择",
+                "🚀 手动切换"
+            ])
         },
+
         // 微软云盘
         {
             name: "Ⓜ️ 微软云盘",
             type: "select",
-            proxies: ["DIRECT", "🚀 节点选择", "🇺🇲 美国节点", "🇭🇰 香港节点", "🇨🇳 台湾节点", "🇸🇬 狮城节点", "🇯🇵 日本节点", ...(krProxies.length > 0 ? ["🇰🇷 韩国节点"] : []), "🚀 手动切换"]
+            proxies: getAvailableProxies([
+                "DIRECT",
+                "🚀 节点选择",
+                "🚀 手动切换"
+            ])
         },
+
         // 微软服务
         {
             name: "Ⓜ️ 微软服务",
             type: "select",
-            proxies: ["DIRECT", "🚀 节点选择", "🇺🇲 美国节点", "🇭🇰 香港节点", "🇨🇳 台湾节点", "🇸🇬 狮城节点", "🇯🇵 日本节点", ...(krProxies.length > 0 ? ["🇰🇷 韩国节点"] : []), "🚀 手动切换"]
+            proxies: getAvailableProxies([
+                "DIRECT",
+                "🚀 节点选择",
+                "🚀 手动切换"
+            ])
         },
+
         // 苹果服务
         {
             name: "🍎 苹果服务",
             type: "select",
-            proxies: ["DIRECT", "🚀 节点选择", "🇺🇲 美国节点", "🇭🇰 香港节点", "🇨🇳 台湾节点", "🇸🇬 狮城节点", "🇯🇵 日本节点", ...(krProxies.length > 0 ? ["🇰🇷 韩国节点"] : []), "🚀 手动切换"]
+            proxies: getAvailableProxies([
+                "DIRECT",
+                "🚀 节点选择",
+                "🚀 手动切换"
+            ])
         },
+
         // 游戏平台
         {
             name: "🎮 游戏平台",
             type: "select",
-            proxies: ["DIRECT", "🚀 节点选择", "🇺🇲 美国节点", "🇭🇰 香港节点", "🇨🇳 台湾节点", "🇸🇬 狮城节点", "🇯🇵 日本节点", ...(krProxies.length > 0 ? ["🇰🇷 韩国节点"] : []), "🚀 手动切换"]
+            proxies: getAvailableProxies([
+                "DIRECT",
+                "🚀 节点选择",
+                "🚀 手动切换"
+            ])
         },
+
         // 网易音乐
         {
             name: "🎶 网易音乐",
             type: "select",
-            proxies: ["DIRECT", "🚀 节点选择", "♻️ 自动选择", ...neteaseMusicProxies]
+            proxies: [
+                "DIRECT",
+                "🚀 节点选择",
+                "♻️ 自动选择",
+                ...neteaseMusicProxies
+            ]
         },
+
         // 全球直连
         {
             name: "🎯 全球直连",
             type: "select",
-            proxies: ["DIRECT", "🚀 节点选择", "♻️ 自动选择"]
+            proxies: [
+                "DIRECT",
+                "🚀 节点选择",
+                "♻️ 自动选择"
+            ]
         },
+
         // 广告拦截
         {
             name: "🛑 广告拦截",
             type: "select",
-            proxies: ["REJECT", "DIRECT"]
+            proxies: [
+                "REJECT",
+                "DIRECT"
+            ]
         },
+
         // 应用净化
         {
             name: "🍃 应用净化",
             type: "select",
-            proxies: ["REJECT", "DIRECT"]
+            proxies: [
+                "REJECT",
+                "DIRECT"
+            ]
         },
+
         // 漏网之鱼
         {
             name: "🐟 漏网之鱼",
             type: "select",
-            proxies: ["DIRECT", "🚀 节点选择", "♻️ 自动选择", "🇭🇰 香港节点", "🇨🇳 台湾节点", "🇸🇬 狮城节点", "🇯🇵 日本节点", "🇺🇲 美国节点", ...(krProxies.length > 0 ? ["🇰🇷 韩国节点"] : []), "🚀 手动切换"]
+            proxies: getAvailableProxies([
+                "DIRECT",
+                "🚀 节点选择",
+                "♻️ 自动选择",
+                "🚀 手动切换"
+            ])
         },
+
         // 奈飞节点
         {
             name: "🎥 奈飞节点",
             type: "select",
             proxies: nfProxies.length > 0 ? nfProxies : ["DIRECT"]
         },
+
         // 添加地区分组
         ...regionGroups
     ];
@@ -563,7 +715,6 @@ function main(config) {
         "DOMAIN-KEYWORD,github,♻️ 自动选择",
         "DOMAIN-KEYWORD,googleapis,♻️ 自动选择",
 
-        "DOMAIN-KEYWORD,douyin,🎯 自定义直连",
         "DOMAIN-KEYWORD,weixin,🎯 自定义直连",
         "DOMAIN-KEYWORD,qcc,🎯 自定义直连",
         "DOMAIN-SUFFIX,linux.do,🎯 自定义直连",
