@@ -1,116 +1,141 @@
-# Clash 配置管理工具
+# Clash-Config - Clash Verge Rev 自定义配置
 
 [![GitHub stars](https://img.shields.io/github/stars/Lbiebest/clash-config?style=flat-square)](https://github.com/Lbiebest/clash-config/stargazers)
 [![License](https://img.shields.io/github/license/Lbiebest/clash-config?style=flat-square)](https://github.com/Lbiebest/clash-config/LICENSE)
 
-## 简介
+- [Clash-Config - Clash Verge Rev 自定义配置](#clash-config---clash-verge-rev-自定义配置)
+  - [功能特点](#功能特点)
+  - [目录结构](#目录结构)
+  - [使用方法](#使用方法)
+    - [安装](#安装)
+    - [配置说明](#配置说明)
+  - [自定义配置](#自定义配置)
+    - [修改节点分组规则](#修改节点分组规则)
+    - [添加自定义直连规则](#添加自定义直连规则)
+    - [添加进程直连规则](#添加进程直连规则)
+  - [常见问题](#常见问题)
+    - [配置校验失败](#配置校验失败)
+    - [无法连接特定网站](#无法连接特定网站)
+  - [更新日志](#更新日志)
+  - [贡献指南](#贡献指南)
+  - [许可证](#许可证)
 
-这个仓库提供了一套完整的 Clash 配置管理解决方案，包括基础配置文件、规则集、自定义规则和订阅转换指南。旨在帮助用户快速构建和优化自己的 Clash 配置，实现高效稳定的网络体验。
+<!-- /code_chunk_output -->
+
+一个为 Clash Verge Rev 定制的高效配置方案，提供智能分流、按需代理和自动分组功能。本项目针对中国大陆网络环境优化，同时兼顾海外服务访问体验。
 
 ## 功能特点
 
-- ✅ 预设优化的 DNS 配置
-- ✅ 分类清晰的策略组设置
-- ✅ 全面的分流规则集
-- ✅ 支持远程配置和订阅转换
-- ✅ 详细的配置文档和使用指南
+- 🌐 **智能分组**：自动根据节点名称识别并分组（香港、台湾、日本、美国、新加坡、韩国、英国等）
+- 🚀 **自动测速**：地区分组内节点自动测速选择最佳线路
+- 🔍 **智能分流**：精细化规则分流，国内网站直连，国外服务按需代理
+- 📱 **进程分流**：支持基于进程名称的直连规则
+- 🛡️ **广告拦截**：集成广告过滤规则
+- 📦 **规则集更新**：自动更新各类规则集，保持分流规则最新
+- 🎮 **游戏平台优化**：针对Steam、Epic、Origin等游戏平台优化
+- 📺 **流媒体优化**：针对YouTube、Netflix、哔哩哔哩等流媒体平台优化
 
 ## 目录结构
 
 ```
 clash-config/
-├── local-config/           # 本地配置目录
-├── docs/                   # 文档目录
-│   ├── 配置文件.md         # Clash 配置文件详解
-│   ├── DNS.md              # DNS 配置指南
-│   ├── 策略组.md           # 策略组配置说明
-│   ├── 分流规则.md         # 分流规则说明
-│   ├── 远程配置文件.md      # 远程配置使用指南
-│   └── image/              # 文档图片资源
-├── rules/                  # 规则文件目录
-│   └── CustomDirect.list   # 自定义直连规则
-├── default-config.yml      # 默认配置模板
-├── ACL4SSR_Online_Full.ini             # ACL4SSR 在线完整配置
-└── ACL4SSR_Online_Full_Custom.ini      # 自定义 ACL4SSR 在线配置
+├── local-config/       # 本地配置文件
+│   └── custom-rule.js  # 主要配置脚本
+├── rules/              # 自定义规则
+│   ├── CustomDirect.list   # 自定义直连规则
+│   └── ProcessRules.list   # 进程分流规则
+└── README.md           # 项目说明
 ```
 
-## 使用指南
+## 使用方法
 
-### 基础配置
+### 安装
 
-基础配置文件包含了 Clash 的核心设置，包括端口、模式和 DNS 等参数。你可以直接使用 `default-config.yml` 作为基础模板：
+1. 克隆本仓库到本地：
 
-<details>
-<summary>基础配置示例（点击展开）</summary>
+   ```bash
+   git clone https://github.com/Lbiebest/clash-config.git
+   ```
 
-```yml
-mixed-port: 7890
-allow-lan: true
-bind-address: "*"
-ipv6: false
-mode: rule
-log-level: info
-external-controller: 127.0.0.1:9090
-dns:
-  enable: true
-  prefer-h3: true
-  use-hosts: true
-  # 更多 DNS 配置...
-```
-</details>
+2. 在 Clash Verge Rev 中导入配置：
+   - 打开 Clash Verge Rev
+   - 进入"配置"选项卡
+   - 点击"导入"按钮
+   - 选择本地JavaScript配置文件（`local-config/custom-rule.js`）
 
-### 订阅转换
+### 配置说明
 
-将现有的订阅链接转换为 Clash 配置的步骤：
+**custom-rule.js** 是核心配置文件，通过JavaScript动态处理配置：
 
-1. 准备好你的节点订阅链接
-2. 使用订阅转换工具（如 [subconverter](https://github.com/tindy2013/subconverter)）
-3. 选择本仓库提供的配置模板（ACL4SSR_Online_Full_Custom.ini）
-4. 生成 Clash 配置并导入到 Clash 客户端
-
-![订阅转换示例](./docs/image/image1.png)
-
-### 配置检查
-
-生成配置后，检查转换结果是否符合预期：
-
-![配置检查](./docs/image/image2.png)
-
-如果导入遇到问题，可能需要检查 SSL 证书设置：
-
-![SSL证书设置](./docs/image/image3.png)
-
-## 详细文档
-
-本项目提供了详细的配置文档，涵盖各个方面：
-
-- [配置文件基础](./docs/配置文件.md) - Clash 配置文件的基本结构和参数说明
-- [DNS 设置详解](./docs/DNS.md) - DNS 配置的详细说明和优化建议
-- [策略组配置](./docs/策略组.md) - 策略组的分类、配置和使用方法
-- [分流规则详解](./docs/分流规则.md) - 常用分流规则说明和自定义方法
-- [远程配置使用](./docs/远程配置文件.md) - 远程配置的使用和维护指南
+- **节点过滤**：通过正则表达式过滤特定节点
+- **地区分组**：自动将节点按地区分组
+- **代理策略**：为不同应用和网站设置合适的代理策略
+- **规则处理**：处理规则集并建立优先级
 
 ## 自定义配置
 
-你可以根据个人需求修改以下文件：
+### 修改节点分组规则
 
-1. `rules/CustomDirect.list` - 添加自定义的直连域名或 IP
-2. `ACL4SSR_Online_Full_Custom.ini` - 自定义规则集和策略组
+编辑 `local-config/custom-rule.js` 文件中的正则表达式：
+
+```javascript
+// 按地区分组的正则表达式 - 根据配置修改正则匹配
+const hkRegex = /港|HK|hk|Hong Kong|HongKong|hongkong/i;
+const twRegex = /台|新北|彰化|TW|Taiwan/i;
+// 其他地区正则...
+```
+
+### 添加自定义直连规则
+
+编辑 `rules/CustomDirect.list` 文件，添加需要直连的域名或IP：
+
+```
+# 示例：添加自定义直连域名
+DOMAIN-SUFFIX,example.com
+DOMAIN-KEYWORD,example
+```
+
+### 添加进程直连规则
+
+编辑 `rules/ProcessRules.list` 文件，添加需要直连的进程名称：
+
+```
+# 示例：添加需要直连的进程
+PROCESS-NAME,YourApp.exe
+```
+
+## 常见问题
+
+### 配置校验失败
+
+如果遇到"配置校验失败"错误，通常是因为：
+
+1. 代理组引用了不存在的节点组，检查节点名称是否正确
+2. 规则引用了不存在的代理组，检查代理组名称是否正确
+3. 配置文件语法错误，检查JavaScript语法
+
+解决方案：使用最新版本的 `custom-rule.js` 文件，其中包含了智能适配功能，可以避免引用不存在的节点组。
+
+### 无法连接特定网站
+
+1. 检查该网站对应的规则是否正确
+2. 尝试将该网站添加到 `CustomDirect.list` 或相应规则集
+3. 调整规则优先级
+
+## 更新日志
+
+- **2024.03.30**：优化代理组配置，添加英国节点分组，修复配置校验问题
+- **2024.03.28**：添加进程分流规则，优化直连规则
+- **2024.03.27**：初始版本发布
 
 ## 贡献指南
 
-欢迎提交 Issues 和 Pull Requests 来完善这个项目。在提交贡献前，请确保你的修改符合项目的目标和规范。
+欢迎提交Pull Request或Issues来完善本项目。贡献时请注意：
 
-## 许可协议
+1. 遵循现有的代码风格和注释规范
+2. 提供详细的改动说明
+3. 测试配置确保可用
 
-本项目采用 MIT 许可协议 - 详细信息请查看 [LICENSE](LICENSE) 文件。
+## 许可证
 
-## 参考资源
-
-- [Clash 官方文档](https://github.com/Dreamacro/clash/wiki)
-- [ACL4SSR 规则](https://github.com/ACL4SSR/ACL4SSR)
-- [Subconverter 项目](https://github.com/tindy2013/subconverter)
-
----
-
-项目参考自: https://linux.do/t/topic/163682
+本项目使用 [MIT 许可证](LICENSE)。
