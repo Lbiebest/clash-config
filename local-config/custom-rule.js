@@ -622,9 +622,9 @@ function main(config) {
             name: "🎮 游戏平台",
             type: "select",
             proxies: getAvailableProxies([
-                "DIRECT",
                 "🚀 节点选择",
-                "🚀 手动切换"
+                "🚀 手动切换",
+                "DIRECT",
             ])
         },
 
@@ -676,10 +676,10 @@ function main(config) {
             name: "🐟 漏网之鱼",
             type: "select",
             proxies: getAvailableProxies([
-                "DIRECT",
-                "🚀 节点选择",
                 "♻️ 自动选择",
-                "🚀 手动切换"
+                "🚀 节点选择",
+                "🚀 手动切换",
+                "DIRECT",
             ])
         },
 
@@ -711,12 +711,18 @@ function main(config) {
         "DOMAIN-KEYWORD,colab,♻️ 自动选择",
         "DOMAIN-KEYWORD,developerprofiles,♻️ 自动选择",
         "DOMAIN-KEYWORD,generativelanguage,♻️ 自动选择",
-
+        
         "DOMAIN-KEYWORD,github,♻️ 自动选择",
         "DOMAIN-KEYWORD,googleapis,♻️ 自动选择",
+        "DOMAIN,zhuce.mri.edu.kg,♻️ 自动选择",
+        "DOMAIN-KEYWORD,imgur,🇺🇲 美国节点",
 
+        "DOMAIN-KEYWORD,infini,🎯 自定义直连",
+        "DOMAIN-KEYWORD,cnki,🎯 自定义直连",
         "DOMAIN-KEYWORD,weixin,🎯 自定义直连",
+        "DOMAIN-KEYWORD,cnki,🎯 自定义直连",
         "DOMAIN-KEYWORD,qcc,🎯 自定义直连",
+        "DOMAIN-KEYWORD,gitcode,🎯 自定义直连",
         "DOMAIN-SUFFIX,linux.do,🎯 自定义直连",
         "DOMAIN-SUFFIX,speedtest.net,🎯 自定义直连",
         "DOMAIN-SUFFIX,nguaduot.cn,🎯 自定义直连",
