@@ -15,7 +15,6 @@ payload:
   - DOMAIN-KEYWORD,douyin
   - DOMAIN-KEYWORD,weixin
   - DOMAIN-KEYWORD,qcc
-  - DOMAIN-SUFFIX,linux.do
   - DOMAIN-SUFFIX,speedtest.net
   - DOMAIN-SUFFIX,nguaduot.cn
   - DOMAIN-SUFFIX,demo.fuclaude.com
