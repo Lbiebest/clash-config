@@ -18,6 +18,7 @@ payload:
   - DOMAIN-SUFFIX,linux.do
   - DOMAIN-SUFFIX,speedtest.net
   - DOMAIN-SUFFIX,nguaduot.cn
+  - DOMAIN-SUFFIX,demo.fuclaude.com
 
   # 社交通讯类
   - DOMAIN-KEYWORD,douyin
