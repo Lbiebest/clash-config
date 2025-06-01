@@ -15,6 +15,7 @@ DOMAIN-SUFFIX,api.anthropic.com
 # Google AI
 DOMAIN-SUFFIX,gemini.google.com
 DOMAIN-SUFFIX,ai.google
+DOMAIN,mtalk.google.com
 DOMAIN-SUFFIX,generativelanguage.googleapis.com
 DOMAIN,ai.google.dev
 DOMAIN,alkalimakersuite-pa.clients6.google.com
