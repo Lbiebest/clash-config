@@ -21,6 +21,7 @@ payload:
 
   # 社交通讯类
   - DOMAIN-KEYWORD,douyin
+  - DOMAIN-SUFFIX,douyin.com
   - DOMAIN-KEYWORD,weixin
   - DOMAIN-KEYWORD,qcc
   - DOMAIN-SUFFIX,qq.com
