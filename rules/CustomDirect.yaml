@@ -18,6 +18,7 @@ payload:
   - DOMAIN-SUFFIX,nguaduot.cn
   - DOMAIN-SUFFIX,demo.fuclaude.com
   - DOMAIN-SUFFIX,linux.do
+  - DOMAIN-SUFFIX,docs.python.org
 
   # 社交通讯类
   - DOMAIN-KEYWORD,douyin
