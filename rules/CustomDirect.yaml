@@ -19,6 +19,7 @@ payload:
   - DOMAIN-SUFFIX,demo.fuclaude.com
   - DOMAIN-SUFFIX,linux.do
   - DOMAIN-SUFFIX,docs.python.org
+  - DOMAIN,ajiam.ceic.com
 
   # 社交通讯类
   - DOMAIN-KEYWORD,douyin
