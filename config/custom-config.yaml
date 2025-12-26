@@ -1,0 +1,61 @@
+# 基础配置
+mixed-port: 7890
+allow-lan: true
+bind-address: "*"
+ipv6: false
+mode: rule
+log-level: info
+external-controller: 127.0.0.1:9090
+
+# DNS配置
+dns:
+  enable: true
+  ipv6: true
+  prefer-h3: true 
+  respect-rules: true
+  listen: 0.0.0.0:1053 
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  use-hosts: true
+  use-system-hosts: false 
+  nameserver:
+    - https://dns.alidns.com/dns-query 
+    - https://doh.pub/dns-query 
+  proxy-server-nameserver:
+    - https://dns.alidns.com/dns-query 
+    - https://doh.pub/dns-query 
+  direct-nameserver:
+    - https://dns.alidns.com/dns-query
+  nameserver-policy:
+    "geosite:cn,private":
+      - https://doh.pub/dns-query
+      - https://dns.alidns.com/dns-query
+    "makima.online":
+      - 119.29.29.29
+  fallback:
+    - https://1.1.1.1/dns-query
+    - https://doh.apad.pro/dns-query
+  fallback-filter:
+    geoip: false
+    ipcidr:
+      - 240.0.0.0/4
+      - 0.0.0.0/32
+      - 61.160.148.90/32
+      - "3131:3131:3131:3131:3131:3131:3131:3131/128"
+    domain:
+      - "+.fmta.boo"
+
+# 代理集和规则集缓存时间
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+# tun模式配置
+tun:
+  enable: true
+  stack: system
+  dns-hijack:
+    - "any:53"
+  auto-route: true
+  auto-detect-interface: true
+ 

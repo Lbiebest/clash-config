@@ -1,0 +1,84 @@
+# AI服务规则
+# OpenAI
+DOMAIN-SUFFIX,openai.com
+DOMAIN-SUFFIX,chatgpt.com
+DOMAIN-SUFFIX,chat.openai.com
+DOMAIN-SUFFIX,api.openai.com
+DOMAIN-SUFFIX,platform.openai.com
+DOMAIN-SUFFIX,cdn.openai.com
+
+# Anthropic
+DOMAIN-SUFFIX,anthropic.com
+DOMAIN-SUFFIX,claude.ai
+DOMAIN-SUFFIX,api.anthropic.com
+
+# Google AI
+DOMAIN-SUFFIX,gemini.google.com
+DOMAIN-SUFFIX,ai.google
+DOMAIN,mtalk.google.com
+DOMAIN-SUFFIX,generativelanguage.googleapis.com
+DOMAIN,ai.google.dev
+DOMAIN,alkalimakersuite-pa.clients6.google.com
+DOMAIN,makersuite.google.com
+DOMAIN-SUFFIX,bard.google.com
+DOMAIN-SUFFIX,deepmind.com
+DOMAIN-SUFFIX,deepmind.google
+DOMAIN-SUFFIX,gemini.google.com
+DOMAIN-SUFFIX,generativeai.google
+DOMAIN-SUFFIX,proactivebackend-pa.googleapis.com
+DOMAIN-SUFFIX,apis.google.com
+DOMAIN-KEYWORD,colab
+DOMAIN-KEYWORD,generativelanguage
+
+# Microsoft AI
+DOMAIN-SUFFIX,copilot.microsoft.com
+DOMAIN-SUFFIX,bing.com
+DOMAIN-SUFFIX,edge.microsoft.com
+
+# Midjourney
+DOMAIN-SUFFIX,midjourney.com
+DOMAIN-SUFFIX,cdn.midjourney.com
+
+# Stability AI
+DOMAIN-SUFFIX,stability.ai
+DOMAIN-SUFFIX,api.stability.ai
+
+# Hugging Face
+DOMAIN-SUFFIX,huggingface.co
+DOMAIN-SUFFIX,huggingface.com
+DOMAIN-SUFFIX,cdn-lfs.huggingface.co
+
+# Replicate
+DOMAIN-SUFFIX,replicate.com
+DOMAIN-SUFFIX,api.replicate.com
+
+# Runway
+DOMAIN-SUFFIX,runwayml.com
+DOMAIN-SUFFIX,api.runwayml.com
+
+# ElevenLabs
+DOMAIN-SUFFIX,elevenlabs.io
+DOMAIN-SUFFIX,api.elevenlabs.io
+
+# Perplexity
+DOMAIN-SUFFIX,perplexity.ai
+DOMAIN-SUFFIX,api.perplexity.ai
+
+# Character AI
+DOMAIN-SUFFIX,character.ai
+DOMAIN-SUFFIX,api.character.ai
+
+# Poe
+DOMAIN-SUFFIX,poe.com
+DOMAIN-SUFFIX,api.poe.com
+
+# x.ai
+DOMAIN-SUFFIX,x.ai
+DOMAIN-SUFFIX,api.x.ai
+DOMAIN-SUFFIX,chat.x.ai
+
+# Grok
+DOMAIN-SUFFIX,grok.x.ai
+DOMAIN-SUFFIX,api.grok.x.ai
+DOMAIN-SUFFIX,chat.grok.x.ai
+
