@@ -22,23 +22,23 @@
  * 包含通用的测试参数
  */
 const groupBaseOption = {
-  interval: 300,          // 测试间隔(秒)
-  timeout: 1000,         // 超时时间(毫秒)
+  interval: 300, // 测试间隔(秒)
+  timeout: 1000, // 超时时间(毫秒)
   url: "https://www.gstatic.com/generate_204", // 测试连接
   "max-failed-times": 3, // 最大失败次数
-  hidden: false,        // 是否在界面隐藏 (基础选项中设置为false，具体分组可覆盖)
-  lazy: true            // 默认启用懒加载以提高启动速度
+  hidden: false, // 是否在界面隐藏 (基础选项中设置为false，具体分组可覆盖)
+  lazy: true, // 默认启用懒加载以提高启动速度
 };
 
 /**
-* 代理规则配置列表
-* @type {ProxyRule[]}
-*/
+ * 代理规则配置列表
+ * @type {ProxyRule[]}
+ */
 const proxyGrepConfig = [
   {
-    name: "Tun 组",
+    name: "Tun 组",  
     gfw: true,
-    rulesName: ["US", "JP", "HK", "UK", "手动选择"], // 允许手动指定微信走的节点组
+    rulesName: ["US","JP","HK","UK","手动选择"], 
     payload: [
       "PROCESS-NAME,antigravity.exe",
       "PROCESS-NAME,language_server_windows_x64.exe",
@@ -49,11 +49,9 @@ const proxyGrepConfig = [
     name: "自定义出境",
     gfw: true,
     payload: [
-      // "DOMAIN-SUFFIX,linux.do",
-      // "DOMAIN-SUFFIX,xboxlive.com",
-      // "DOMAIN-KEYWORD,shusan"
+      "DOMAIN-SUFFIX,xboxlive.com",
     ],
-    icon: "https://fastly.jsdelivr.net/gh/yz0812/mypic@master/Clash_Verge_Rev/10041.svg"
+    icon: "https://fastly.jsdelivr.net/gh/yz0812/mypic@master/Clash_Verge_Rev/10041.svg",
   },
   {
     name: "自定义直连",
@@ -62,9 +60,9 @@ const proxyGrepConfig = [
     payload: [
       "IP-CIDR,10.207.194.26/32",
       "DOMAIN-SUFFIX,ceic.com",
-      "DOMAIN,ajiam.ceic.com"
+      "DOMAIN,ajiam.ceic.com",
     ],
-    icon: "https://fastly.jsdelivr.net/gh/yz0812/mypic@master/Clash_Verge_Rev/10041.svg"
+    icon: "https://fastly.jsdelivr.net/gh/yz0812/mypic@master/Clash_Verge_Rev/10041.svg",
   },
   {
     name: "广告拦截",
@@ -121,10 +119,7 @@ const proxyGrepConfig = [
     name: "Cursor",
     gfw: true,
     rulesName: ["HK", "US"],
-    payload: [
-      "DOMAIN-SUFFIX,cursor.sh",
-      "DOMAIN-SUFFIX,cursor.com"
-    ],
+    payload: ["DOMAIN-SUFFIX,cursor.sh", "DOMAIN-SUFFIX,cursor.com"],
     icon: "https://fastly.jsdelivr.net/gh/yz0812/mypic@master/Clash_Verge_Rev/cursor.svg",
   },
   {
@@ -135,7 +130,7 @@ const proxyGrepConfig = [
       "DOMAIN-SUFFIX,x.ai",
       "DOMAIN-SUFFIX,grok.x.ai",
       "DOMAIN-SUFFIX,grok-api.x.ai",
-      "DOMAIN-KEYWORD,grok"
+      "DOMAIN-KEYWORD,grok",
     ],
     icon: "https://fastly.jsdelivr.net/gh/yz0812/mypic@master/Clash_Verge_Rev/grok.svg",
   },
@@ -206,35 +201,99 @@ const proxyGrepConfig = [
 ];
 
 /**
-* 区域代理组详细配置数据
-*/
+ * 区域代理组详细配置数据
+ */
 const regionalGroupData = [
-  { name: "HK", filter: "香港|HK|🇭🇰", tolerance: 50, interval: 180, hidden: true, icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png" },
-  { name: "TW", filter: "台湾|TW|🇼", tolerance: 80, interval: 180, hidden: true, icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png" },
-  { name: "JP", filter: "日本|JP|🇯🇵", tolerance: 70, interval: 180, hidden: true, icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Japan.png" },
-  { name: "KR", filter: "韩国|KR|🇰🇷", tolerance: 80, interval: 180, hidden: true, icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Korea.png" },
-  { name: "US", filter: "美国|US|🇺🇸", tolerance: 150, interval: 180, hidden: true, icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png" },
-  { name: "DE", filter: "德国|DE|🇩🇪", tolerance: 180, interval: 180, hidden: true, icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Germany.png" },
-  { name: "SG", filter: "新加坡|SG|🇸🇬", tolerance: 100, interval: 180, hidden: true, icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png" },
-  { name: "FR", filter: "法国|FR|🇫🇷", tolerance: 180, interval: 180, hidden: true, icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/France.png" },
-  { name: "UK", filter: "英国|GB|🇬🇧", tolerance: 180, interval: 180, hidden: true, icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_Kingdom.png", "exclude-filter": "Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置" }
+  {
+    name: "HK",
+    filter: "香港|HK|🇭🇰",
+    tolerance: 50,
+    interval: 180,
+    hidden: true,
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png",
+  },
+  {
+    name: "TW",
+    filter: "台湾|TW|🇼",
+    tolerance: 80,
+    interval: 180,
+    hidden: true,
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png",
+  },
+  {
+    name: "JP",
+    filter: "日本|JP|🇯🇵",
+    tolerance: 70,
+    interval: 180,
+    hidden: true,
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Japan.png",
+  },
+  {
+    name: "KR",
+    filter: "韩国|KR|🇰🇷",
+    tolerance: 80,
+    interval: 180,
+    hidden: true,
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Korea.png",
+  },
+  {
+    name: "US",
+    filter: "美国|US|🇺🇸",
+    tolerance: 150,
+    interval: 180,
+    hidden: true,
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png",
+  },
+  {
+    name: "DE",
+    filter: "德国|DE|🇩🇪",
+    tolerance: 180,
+    interval: 180,
+    hidden: true,
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Germany.png",
+  },
+  {
+    name: "SG",
+    filter: "新加坡|SG|🇸🇬",
+    tolerance: 100,
+    interval: 180,
+    hidden: true,
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png",
+  },
+  {
+    name: "FR",
+    filter: "法国|FR|🇫🇷",
+    tolerance: 180,
+    interval: 180,
+    hidden: true,
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/France.png",
+  },
+  {
+    name: "UK",
+    filter: "英国|GB|🇬🇧",
+    tolerance: 180,
+    interval: 180,
+    hidden: true,
+    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_Kingdom.png",
+    "exclude-filter": "Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置",
+  },
 ];
 
 /**
-* 根据区域数据生成代理组配置
-*/
-const proxyGroupConfigOther = regionalGroupData.map(region => ({
+ * 根据区域数据生成代理组配置
+ */
+const proxyGroupConfigOther = regionalGroupData.map((region) => ({
   ...groupBaseOption, // 基础配置 (包含 lazy: true)
-  type: "url-test",   // 类型为 url-test
+  type: "url-test", // 类型为 url-test
   "include-all": true, // 包含所有代理节点
-  ...region            // 覆盖区域特定配置
+  ...region, // 覆盖区域特定配置
 }));
 
 /**
-* 主函数：生成 Clash 配置
-* @param {Object} config - 包含代理配置的对象
-* @returns {Object} 完整的 Clash 配置对象
-*/
+ * 主函数：生成 Clash 配置
+ * @param {Object} config - 包含代理配置的对象
+ * @returns {Object} 完整的 Clash 配置对象
+ */
 function main(config) {
   const proxies = config.proxies;
 
@@ -249,7 +308,7 @@ function main(config) {
       hash = (hash * 33) ^ str.charCodeAt(i);
     }
     // Return a positive integer hex string, prefixed
-    return 'rule-' + (hash >>> 0).toString(16);
+    return "rule-" + (hash >>> 0).toString(16);
   }
 
   /**
@@ -302,10 +361,25 @@ function main(config) {
    * @param {boolean} [includeAll=true] - 是否包含所有代理节点 (默认为 true)
    * @returns {Object} Select 代理组配置
    */
-  function createSelectGroup(name, gfw, extraProxies, icon, rulesName = null, includeAll = true) {
+  function createSelectGroup(
+    name,
+    gfw,
+    extraProxies,
+    icon,
+    rulesName = null,
+    includeAll = true,
+  ) {
     const baseProxies = gfw ? ["自动选择", "DIRECT"] : ["DIRECT", "自动选择"];
-    const additionalProxies = rulesName ? (Array.isArray(rulesName) ? rulesName : [rulesName]) : [];
-    const extra = extraProxies ? (Array.isArray(extraProxies) ? extraProxies : [extraProxies]) : [];
+    const additionalProxies = rulesName
+      ? Array.isArray(rulesName)
+        ? rulesName
+        : [rulesName]
+      : [];
+    const extra = extraProxies
+      ? Array.isArray(extraProxies)
+        ? extraProxies
+        : [extraProxies]
+      : [];
 
     return {
       name,
@@ -323,9 +397,25 @@ function main(config) {
   const rules = [];
 
   // 处理每个代理规则配置
-  for (const { name, gfw, urls, payload, extraProxies, icon, rulesName, 'include-all': includeAllConfig } of proxyGrepConfig) {
+  for (const {
+    name,
+    gfw,
+    urls,
+    payload,
+    extraProxies,
+    icon,
+    rulesName,
+    "include-all": includeAllConfig,
+  } of proxyGrepConfig) {
     // 创建代理组，传递 includeAllConfig (如果未定义则默认为 true)
-    const group = createSelectGroup(name, gfw, extraProxies, icon, rulesName, includeAllConfig !== undefined ? includeAllConfig : true);
+    const group = createSelectGroup(
+      name,
+      gfw,
+      extraProxies,
+      icon,
+      rulesName,
+      includeAllConfig !== undefined ? includeAllConfig : true,
+    );
     if (gfw) {
       proxyGfwGroups.push(group);
     } else {
@@ -347,20 +437,22 @@ function main(config) {
   }
 
   // 获取所有区域代理组名称
-  const proxyNode = proxyGroupConfigOther.map(group => group.name);
+  const proxyNode = proxyGroupConfigOther.map((group) => group.name);
 
   // 返回完整配置
   return {
     mode: "rule",
     "find-process-mode": "strict",
     "global-client-fingerprint": "chrome",
-    "unified-delay": true,    // 优化延迟计算方式
-    "tcp-concurrent": true,   // 启用TCP并发
+    "unified-delay": true, // 优化延迟计算方式
+    "tcp-concurrent": true, // 启用TCP并发
 
     // GeoX 数据配置
     "geox-url": {
-      geoip: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@latest/geoip-lite.dat",
-      geosite: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@latest/geosite.dat",
+      geoip:
+        "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@latest/geoip-lite.dat",
+      geosite:
+        "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@latest/geosite.dat",
     },
 
     // DNS 配置
@@ -368,37 +460,33 @@ function main(config) {
       enable: true,
       ipv6: true,
       "enhanced-mode": "fake-ip",
-      "fake-ip-filter": [
-        "*",
-        "+.lan",
-        "+.local",
-        "geosite:cn",
-        "microsoft.com"
-      ],
+      "fake-ip-filter": ["*", "+.lan", "+.local"],
+
       nameserver: [
         "system",
         "114.114.114.114",
         "223.5.5.5",
-        "https://dns.alidns.com/dns-query",  // 阿里云
-        "https://doh.pub/dns-query",         // 腾讯
+        "1.1.1.1",
+        "https://dns.alidns.com/dns-query",
+        "https://doh.pub/dns-query",
       ],
+
       fallback: [
-        "https://1.0.0.1/dns-query",         // Cloudflare
-        "https://sky.rethinkdns.com",        // RethinkDNS
-        "https://dns.alidns.com/dns-query",  // 阿里云
-        "https://doh.pub/dns-query",         // 腾讯
+        "https://1.0.0.1/dns-query",
+        "https://sky.rethinkdns.com",
+        "https://dns.alidns.com/dns-query",
+        "https://doh.pub/dns-query",
       ],
+      // 指定域名走DOH
+      // "nameserver-policy": {
+      //   "domain": ["DOH"],
+      //   "+.domain": ["DOH"],
+      // },
       "fallback-filter": {
         geoip: true,
         "geoip-code": "CN",
         geosite: ["gfw"],
-        domain: [
-          "+.google.com",
-          "+.facebook.com",
-          "+.youtube.com",
-          "+.wechat.com", // 强制微信域名通过 fallback DNS 解析
-          "+.weixin.qq.com"
-        ],
+        domain: ["+.google.com", "+.facebook.com", "+.youtube.com"],
       },
     },
     // 代理配置
@@ -478,7 +566,7 @@ function main(config) {
       ...rules,
       "GEOSITE,gfw,被墙网站",
       "GEOIP,CN,国内网站",
-      "MATCH,国外网站"
+      "MATCH,国外网站",
     ],
   };
 }
