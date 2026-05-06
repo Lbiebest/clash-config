@@ -42,6 +42,7 @@ function textProvider(name, url) {
     return createRuleProvider(name, "text", "classical", url);
 }
 
+
 const ruleProviders = {
     "LocalAreaNetwork": loyalsoldierProvider("LocalAreaNetwork", "ipcidr", "lancidr.txt"),
     "BanAD": loyalsoldierProvider("BanAD", "domain", "reject.txt"),
@@ -499,7 +500,7 @@ function main(config) {
         "DOMAIN-KEYWORD,colab,♻️ 自动选择",
         "DOMAIN-KEYWORD,developerprofiles,♻️ 自动选择",
         "DOMAIN-KEYWORD,generativelanguage,♻️ 自动选择",
-        
+
         "DOMAIN-KEYWORD,github,♻️ 自动选择",
         "DOMAIN-KEYWORD,googleapis,♻️ 自动选择",
         "DOMAIN,zhuce.mri.edu.kg,♻️ 自动选择",
