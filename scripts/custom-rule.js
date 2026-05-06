@@ -260,7 +260,7 @@ const ruleProviders = {
         "format": "yaml",
         "interval": 86400,
         "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/Lbiebest/clash-config/refs/heads/master/rules/CustomDirect.list",
+        "url": "https://raw.githubusercontent.com/Lbiebest/clash-config/main/rules/CustomDirect.list",
         "path": "./ruleset/CustomDirect.yaml"
     },
     "GuoNeiWangZhan": {
@@ -276,7 +276,7 @@ const ruleProviders = {
         "format": "yaml",
         "interval": 86400,
         "behavior": "ipcidr",
-        "url": "https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/Extra/ChinaIP.yaml",
+        "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/cncidr.txt",
         "path": "./ruleset/ChinaIPs.yaml"
     },
     "ProcessRules": {
@@ -284,7 +284,7 @@ const ruleProviders = {
         "format": "text",
         "interval": 86400,
         "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/Lbiebest/clash-config/refs/heads/master/rules/ProcessRules.list",
+        "url": "https://raw.githubusercontent.com/Lbiebest/clash-config/main/rules/ProcessRules.list",
         "path": "./ruleset/ProcessRules.yaml"
     },
 };
@@ -706,7 +706,7 @@ function main(config) {
         "DOMAIN-SUFFIX,deepmind.google,♻️ 自动选择",
         "DOMAIN-SUFFIX,gemini.google.com,♻️ 自动选择",
         "DOMAIN-SUFFIX,generativeai.google,♻️ 自动选择",
-        "DOMAIN-SUFFIX,proactivebackend - pa.googleapis.com,♻️ 自动选择",
+        "DOMAIN-SUFFIX,proactivebackend-pa.googleapis.com,♻️ 自动选择",
         "DOMAIN-SUFFIX,apis.google.com,♻️ 自动选择",
         "DOMAIN-KEYWORD,colab,♻️ 自动选择",
         "DOMAIN-KEYWORD,developerprofiles,♻️ 自动选择",
@@ -720,7 +720,6 @@ function main(config) {
         "DOMAIN-KEYWORD,infini,🎯 自定义直连",
         "DOMAIN-KEYWORD,cnki,🎯 自定义直连",
         "DOMAIN-KEYWORD,weixin,🎯 自定义直连",
-        "DOMAIN-KEYWORD,cnki,🎯 自定义直连",
         "DOMAIN-KEYWORD,qcc,🎯 自定义直连",
         "DOMAIN-KEYWORD,gitcode,🎯 自定义直连",
         "DOMAIN-SUFFIX,linux.do,🎯 自定义直连",
