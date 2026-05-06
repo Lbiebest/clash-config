@@ -14,279 +14,67 @@ const nfRegex = /NF|奈飞|解锁|Netflix|NETFLIX|Media/i;
 const neteaseMusicRegex = /网易|音乐|解锁|Music|NetEase/i;
 
 // 规则集配置
+const RULE_PROVIDER_INTERVAL = 86400;
+const LOYALSOLDIER_RULES_BASE = "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release";
+const BLACKMATRIX7_CLASH_RULES_BASE = "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash";
+const SELF_RULES_BASE = "https://raw.githubusercontent.com/Lbiebest/clash-config/main/rules";
+
+function createRuleProvider(name, format, behavior, url) {
+    return {
+        "type": "http",
+        "format": format,
+        "interval": RULE_PROVIDER_INTERVAL,
+        "behavior": behavior,
+        "url": url,
+        "path": `./ruleset/${name}.yaml`
+    };
+}
+
+function loyalsoldierProvider(name, behavior, file) {
+    return createRuleProvider(name, "yaml", behavior, `${LOYALSOLDIER_RULES_BASE}/${file}`);
+}
+
+function blackmatrix7Provider(name, file) {
+    return createRuleProvider(name, "yaml", "classical", `${BLACKMATRIX7_CLASH_RULES_BASE}/${file}`);
+}
+
+function textProvider(name, url) {
+    return createRuleProvider(name, "text", "classical", url);
+}
+
 const ruleProviders = {
-    "LocalAreaNetwork": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/LocalAreaNetwork.list",
-        "path": "./ruleset/LocalAreaNetwork.yaml"
-    },
-    "UnBan": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/UnBan.list",
-        "path": "./ruleset/UnBan.yaml"
-    },
-    "BanAD": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanAD.list",
-        "path": "./ruleset/BanAD.yaml"
-    },
-    "BanProgramAD": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanProgramAD.list",
-        "path": "./ruleset/BanProgramAD.yaml"
-    },
-    "GoogleFCM": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleFCM.list",
-        "path": "./ruleset/GoogleFCM.yaml"
-    },
-    "GoogleCN": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/GoogleCN.list",
-        "path": "./ruleset/GoogleCN.yaml"
-    },
-    "SteamCN": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/SteamCN.list",
-        "path": "./ruleset/SteamCN.yaml"
-    },
-    "Bing": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Bing.list",
-        "path": "./ruleset/Bing.yaml"
-    },
-    "OneDrive": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/OneDrive.list",
-        "path": "./ruleset/OneDrive.yaml"
-    },
-    "Microsoft": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Microsoft.list",
-        "path": "./ruleset/Microsoft.yaml"
-    },
-    "Apple": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Apple.list",
-        "path": "./ruleset/Apple.yaml"
-    },
-    "Telegram": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Telegram.list",
-        "path": "./ruleset/Telegram.yaml"
-    },
-    "OpenAi": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/OpenAi.list",
-        "path": "./ruleset/OpenAi.yaml"
-    },
-    "NetEaseMusic": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/NetEaseMusic.list",
-        "path": "./ruleset/NetEaseMusic.yaml"
-    },
-    "Epic": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Epic.list",
-        "path": "./ruleset/Epic.yaml"
-    },
-    "Origin": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Origin.list",
-        "path": "./ruleset/Origin.yaml"
-    },
-    "Sony": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Sony.list",
-        "path": "./ruleset/Sony.yaml"
-    },
-    "Steam": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Steam.list",
-        "path": "./ruleset/Steam.yaml"
-    },
-    "Nintendo": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Nintendo.list",
-        "path": "./ruleset/Nintendo.yaml"
-    },
-    "YouTube": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/YouTube.list",
-        "path": "./ruleset/YouTube.yaml"
-    },
-    "Netflix": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Netflix.list",
-        "path": "./ruleset/Netflix.yaml"
-    },
-    "Bahamut": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Bahamut.list",
-        "path": "./ruleset/Bahamut.yaml"
-    },
-    "BilibiliHMT": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/BilibiliHMT.list",
-        "path": "./ruleset/BilibiliHMT.yaml"
-    },
-    "Bilibili": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Bilibili.list",
-        "path": "./ruleset/Bilibili.yaml"
-    },
-    "ChinaMedia": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaMedia.list",
-        "path": "./ruleset/ChinaMedia.yaml"
-    },
-    "ProxyMedia": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyMedia.list",
-        "path": "./ruleset/ProxyMedia.yaml"
-    },
-    "ProxyGFWlist": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyGFWlist.list",
-        "path": "./ruleset/ProxyGFWlist.yaml"
-    },
-    "ChinaDomain": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaDomain.list",
-        "path": "./ruleset/ChinaDomain.yaml"
-    },
-    "ChinaCompanyIp": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaCompanyIp.list",
-        "path": "./ruleset/ChinaCompanyIp.yaml"
-    },
-    "Download": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Download.list",
-        "path": "./ruleset/Download.yaml"
-    },
-    "CustomDirect": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/Lbiebest/clash-config/main/rules/CustomDirect.list",
-        "path": "./ruleset/CustomDirect.yaml"
-    },
-    "GuoNeiWangZhan": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/Meilieage/webcdn/main/rule/list/GuoNeiWangZhan.list",
-        "path": "./ruleset/GuoNeiWangZhan.yaml"
-    },
-    "ChinaIPs": {
-        "type": "http",
-        "format": "yaml",
-        "interval": 86400,
-        "behavior": "ipcidr",
-        "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/cncidr.txt",
-        "path": "./ruleset/ChinaIPs.yaml"
-    },
-    "ProcessRules": {
-        "type": "http",
-        "format": "text",
-        "interval": 86400,
-        "behavior": "classical",
-        "url": "https://raw.githubusercontent.com/Lbiebest/clash-config/main/rules/ProcessRules.list",
-        "path": "./ruleset/ProcessRules.yaml"
-    },
+    "LocalAreaNetwork": loyalsoldierProvider("LocalAreaNetwork", "ipcidr", "lancidr.txt"),
+    "BanAD": loyalsoldierProvider("BanAD", "domain", "reject.txt"),
+    "BanProgramAD": blackmatrix7Provider("BanProgramAD", "Advertising/Advertising.yaml"),
+    "GoogleFCM": blackmatrix7Provider("GoogleFCM", "GoogleFCM/GoogleFCM.yaml"),
+    "GoogleCN": blackmatrix7Provider("GoogleCN", "Google/Google.yaml"),
+    "SteamCN": blackmatrix7Provider("SteamCN", "SteamCN/SteamCN.yaml"),
+    "Bing": blackmatrix7Provider("Bing", "Bing/Bing.yaml"),
+    "OneDrive": blackmatrix7Provider("OneDrive", "OneDrive/OneDrive.yaml"),
+    "Microsoft": blackmatrix7Provider("Microsoft", "Microsoft/Microsoft.yaml"),
+    "Apple": blackmatrix7Provider("Apple", "Apple/Apple.yaml"),
+    "Telegram": blackmatrix7Provider("Telegram", "Telegram/Telegram.yaml"),
+    "OpenAi": blackmatrix7Provider("OpenAi", "OpenAI/OpenAI.yaml"),
+    "NetEaseMusic": blackmatrix7Provider("NetEaseMusic", "NetEaseMusic/NetEaseMusic.yaml"),
+    "Epic": blackmatrix7Provider("Epic", "Epic/Epic.yaml"),
+    "EA": blackmatrix7Provider("EA", "EA/EA.yaml"),
+    "PlayStation": blackmatrix7Provider("PlayStation", "PlayStation/PlayStation.yaml"),
+    "Steam": blackmatrix7Provider("Steam", "Steam/Steam.yaml"),
+    "Nintendo": blackmatrix7Provider("Nintendo", "Nintendo/Nintendo.yaml"),
+    "YouTube": blackmatrix7Provider("YouTube", "YouTube/YouTube.yaml"),
+    "Netflix": blackmatrix7Provider("Netflix", "Netflix/Netflix.yaml"),
+    "Bahamut": blackmatrix7Provider("Bahamut", "Bahamut/Bahamut.yaml"),
+    "BiliBiliIntl": blackmatrix7Provider("BiliBiliIntl", "BiliBiliIntl/BiliBiliIntl.yaml"),
+    "Bilibili": blackmatrix7Provider("Bilibili", "BiliBili/BiliBili.yaml"),
+    "ChinaMedia": blackmatrix7Provider("ChinaMedia", "ChinaMedia/ChinaMedia.yaml"),
+    "ProxyMedia": blackmatrix7Provider("ProxyMedia", "GlobalMedia/GlobalMedia.yaml"),
+    "ProxyGFWlist": loyalsoldierProvider("ProxyGFWlist", "domain", "proxy.txt"),
+    "ChinaDomain": loyalsoldierProvider("ChinaDomain", "domain", "direct.txt"),
+    "Download": blackmatrix7Provider("Download", "Download/Download.yaml"),
+    "CustomDirect": textProvider("CustomDirect", `${SELF_RULES_BASE}/CustomDirect.list`),
+    "GuoNeiWangZhan": textProvider("GuoNeiWangZhan", "https://raw.githubusercontent.com/Meilieage/webcdn/main/rule/list/GuoNeiWangZhan.list"),
+    "ChinaIPs": loyalsoldierProvider("ChinaIPs", "ipcidr", "cncidr.txt"),
+    "ProcessRules": textProvider("ProcessRules", `${SELF_RULES_BASE}/ProcessRules.list`),
 };
 
 // 获取符合正则表达式的代理组
@@ -751,7 +539,6 @@ function main(config) {
         // ===== 基础规则 =====
         // 全球直连规则
         "RULE-SET,LocalAreaNetwork,🎯 全球直连",
-        "RULE-SET,UnBan,🎯 全球直连",
 
         // ===== 广告规则 =====
         // 广告拦截
@@ -781,8 +568,8 @@ function main(config) {
 
         // ===== 游戏平台 =====
         "RULE-SET,Epic,🎮 游戏平台",
-        "RULE-SET,Origin,🎮 游戏平台",
-        "RULE-SET,Sony,🎮 游戏平台",
+        "RULE-SET,EA,🎮 游戏平台",
+        "RULE-SET,PlayStation,🎮 游戏平台",
         "RULE-SET,Steam,🎮 游戏平台",
         "RULE-SET,Nintendo,🎮 游戏平台",
 
@@ -790,7 +577,7 @@ function main(config) {
         "RULE-SET,YouTube,📹 油管视频",
         "RULE-SET,Netflix,🎥 奈飞视频",
         "RULE-SET,Bahamut,📺 巴哈姆特",
-        "RULE-SET,BilibiliHMT,📺 哔哩哔哩",
+        "RULE-SET,BiliBiliIntl,📺 哔哩哔哩",
         "RULE-SET,Bilibili,📺 哔哩哔哩",
         "RULE-SET,ChinaMedia,🌏 国内媒体",
         "RULE-SET,ProxyMedia,🌍 国外媒体",
@@ -800,7 +587,6 @@ function main(config) {
 
         // ===== 中国直连域名 =====
         "RULE-SET,ChinaDomain,🎯 全球直连",
-        "RULE-SET,ChinaCompanyIp,🎯 全球直连",
         "RULE-SET,Download,🎯 全球直连",
 
         // ===== 兜底规则 =====
